@@ -4,6 +4,8 @@ package com.prismaplaza.shopping.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 
 @Entity
 @Table(name = "users")
@@ -20,6 +22,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    //    @OneToMany(mappedBy = "user")
-    //    private List<Order> orders;
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 }
