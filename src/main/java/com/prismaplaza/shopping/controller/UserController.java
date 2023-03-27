@@ -17,8 +17,14 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<Object[]> getAllUsers() {
+//        List<User> all = userRepository.findAllUsersz();
+//        all.forEach(user -> System.out.println(user));
+//        return all;
+//        return userRepository.findUserById(1L);
+        System.out.println("***********");
+        return userRepository.findAllUserWithProduct();
+
     }
 
     @PostMapping("/")
@@ -33,14 +39,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        return userRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User userToUpdate) {
-        User existingUser = userRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
 
         existingUser.setEmail(userToUpdate.getEmail());
         existingUser.setPassword(userToUpdate.getPassword());
@@ -50,8 +54,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id) {
-        User userToDelete = userRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        User userToDelete = userRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
 
         userRepository.delete(userToDelete);
 

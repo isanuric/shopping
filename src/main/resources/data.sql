@@ -16,3 +16,17 @@ INSERT INTO products (name, price, order_date, user_id) VALUES
 ('Kürbis', 2.99, NOW(), 4),
 ('Spargel', 4.99, NOW(), 5),
 ('Lauch', 1.49, NOW(), 5);
+
+
+INSERT INTO products (name, price, order_date, user_id)
+VALUES
+('Tomato', 2.99, '2023-03-26 10:30:00', 1),
+('Cucumber', 1.49, '2023-03-26 11:45:00', 1),
+('Carrot', 0.89, '2023-03-26 13:20:00', 2),
+('Lettuce', 1.99, '2023-03-26 14:00:00', 2),
+('Broccoli', 2.49, '2023-03-26 15:30:00', 3),
+('Spinach', 2.99, '2023-03-26 16:15:00', 3),
+('Pepper', 1.79, '2023-03-26 17:00:00', 4),
+('Eggplant', 2.49, '2023-03-26 18:30:00', 5),
+('Zucchini', 1.99, '2023-03-26 19:45:00', 5),
+('Green beans', 1.69, '2023-03-26 20:15:00', 5);
