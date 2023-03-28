@@ -3,7 +3,6 @@ package com.prismaplaza.shopping.controller;
 import com.prismaplaza.shopping.dto.UserProductDTO;
 import com.prismaplaza.shopping.entity.User;
 import com.prismaplaza.shopping.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/")
     public List<UserProductDTO> getAllUsers() {
