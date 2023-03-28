@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
                     "INNER JOIN products p ON u.id = p.user_id;")
     List<Object[]> findAllUserWithProduct();
 
-    default List<UserProductDTO> findAllUserProductDTO() {
+    default List<UserProductDTO> findAllUserWithProductDTO() {
         List<Object[]> resultList = findAllUserWithProduct();
         return resultList.stream()
                 .map(row -> new UserProductDTO((String) row[0], (String) row[1]))

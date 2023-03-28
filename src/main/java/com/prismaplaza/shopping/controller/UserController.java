@@ -1,5 +1,6 @@
 package com.prismaplaza.shopping.controller;
 
+import com.prismaplaza.shopping.dto.UserProductDTO;
 import com.prismaplaza.shopping.entity.User;
 import com.prismaplaza.shopping.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,8 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/")
-    public List<Object[]> getAllUsers() {
-//        List<User> all = userRepository.findAllUsersz();
-//        all.forEach(user -> System.out.println(user));
-//        return all;
-//        return userRepository.findUserById(1L);
-        System.out.println("***********");
-        return userRepository.findAllUserWithProduct();
-
+    public List<UserProductDTO> getAllUsers() {
+        return userRepository.findAllUserWithProductDTO();
     }
 
     @PostMapping("/")
@@ -39,7 +34,8 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException(1));
     }
 
     @PutMapping("/{id}")
