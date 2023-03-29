@@ -42,7 +42,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User userToUpdate) {
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        User existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException(1));
 
         existingUser.setEmail(userToUpdate.getEmail());
         existingUser.setPassword(userToUpdate.getPassword());
