@@ -2,6 +2,7 @@ package com.prismaplaza.shopping.repository;
 
 import com.prismaplaza.shopping.dto.UserProductDTO;
 import com.prismaplaza.shopping.entity.Product;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,9 +12,11 @@ import java.util.stream.Collectors;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+
     @Query(value = "SELECT p.product_id, p.name FROM products p WHERE p.quantity < :quantityThreshold", nativeQuery = true)
     List<Object[]> findAllProductIdsWithQuantityLessThanQuery(@Param("quantityThreshold") int quantityThreshold);
 
+    @Cacheable(value = "productCache")
     default List<UserProductDTO> findAllProductIdsWithQuantityLessThan01(int quantityThreshold) {
         return findAllProductIdsWithQuantityLessThanQuery(quantityThreshold).stream()
                 .parallel()
