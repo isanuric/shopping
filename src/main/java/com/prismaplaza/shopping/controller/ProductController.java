@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private ProductRepository productRepository;
 
     public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
@@ -40,7 +40,9 @@ public class ProductController {
         //        }
         //        return products;
 
-        return productRepository.findAllProductIdsWithQuantityLessThan01(quantityThreshold);
+        System.out.println("** 1 **");
+        return productRepository.findAllProductsWithQuantityLessThan(quantityThreshold);
     }
+
 
 }
