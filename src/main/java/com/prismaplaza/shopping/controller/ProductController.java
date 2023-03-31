@@ -40,7 +40,6 @@ public class ProductController {
         //        }
         //        return products;
 
-        System.out.println("** 1 **");
         return productRepositoryExtension.findAllProductsWithQuantityLessThan(quantityThreshold);
     }
 

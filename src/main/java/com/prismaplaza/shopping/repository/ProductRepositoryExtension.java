@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 public interface ProductRepositoryExtension extends ProductRepository {
 
-
     @Cacheable(value = "productCache", key = "'findAllProductsWithQuantityLessThanKey'")
     default List<UserProductDTO> findAllProductsWithQuantityLessThan(int quantityThreshold) {
         return findAllProductsWithQuantityLessThanQuery(quantityThreshold).stream()
