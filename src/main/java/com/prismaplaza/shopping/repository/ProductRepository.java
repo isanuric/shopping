@@ -2,7 +2,6 @@ package com.prismaplaza.shopping.repository;
 
 import com.prismaplaza.shopping.dto.UserProductDTO;
 import com.prismaplaza.shopping.entity.Product;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -26,13 +24,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT new com.prismaplaza.shopping.dto.UserProductDTO(p.id, p.name) FROM Product p WHERE p.quantity < :quantityThreshold")
     List<UserProductDTO> findAllProductsWithQuantityLessThanPath(@Param("quantityThreshold") int quantityThreshold);
 
-    @Cacheable(value = "productCache", key = "'findAllProductsWithQuantityLessThanKey'")
-    default List<UserProductDTO> findAllProductsWithQuantityLessThan(int quantityThreshold) {
-        System.out.println(quantityThreshold);
-        return findAllProductsWithQuantityLessThanQuery(quantityThreshold).stream()
-                .parallel()
-                .map(row -> UserProductDTO.builder()
-                        .productId((Integer) row[0]).name((String) row[1]).build())
-                .collect(Collectors.toList());
-    }
 }
