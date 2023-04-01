@@ -43,5 +43,4 @@ public class CacheTest {
         assertEquals(result2, cachedResult);
     }
 
-
 }

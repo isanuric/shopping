@@ -1,6 +1,5 @@
 package com.prismaplaza.shopping.repository;
 
-import com.prismaplaza.shopping.dto.UserProductDTO;
 import com.prismaplaza.shopping.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +21,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Object[]> findAllProductsQuantityLessThan10();
 
     @Query("SELECT new com.prismaplaza.shopping.dto.UserProductDTO(p.id, p.name) FROM Product p WHERE p.quantity < :quantityThreshold")
-    List<UserProductDTO> findAllProductsWithQuantityLessThanPath(@Param("quantityThreshold") int quantityThreshold);
+    List<Object[]> findAllProductsWithQuantityLessThanPath(@Param("quantityThreshold") int quantityThreshold);
 
 }
