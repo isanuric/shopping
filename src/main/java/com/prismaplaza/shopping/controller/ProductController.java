@@ -26,6 +26,7 @@ public class ProductController {
     @GetMapping("/quantity/less-than-ten")
     public ResponseEntity<List<Object[]>> productsQuantityLessThan10() {
         List<Object[]> allProductsQuantityLessThan10 = productRepositoryExtension.findAllProductsQuantityLessThan10();
+
         allProductsQuantityLessThan10.stream().forEach(System.out::println);
         return ResponseEntity.ok(allProductsQuantityLessThan10);
     }
@@ -43,7 +44,14 @@ public class ProductController {
         //        }
         //        return products;
 
-        return productRepositoryExtension.findAllProductsWithQuantityLessThan(quantityThreshold);
+        List<UserProductDTO> productList = productRepositoryExtension.findAllProductsWithQuantityLessThan(quantityThreshold);
+
+        System.out.println("**** ****");
+        productList.stream()
+                .map(UserProductDTO::getName)
+                .forEach(System.out::println);
+
+        return productList;
     }
 
 
