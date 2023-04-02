@@ -2,6 +2,7 @@ package com.prismaplaza.shopping.controller;
 
 import com.prismaplaza.shopping.dto.UserProductDTO;
 import com.prismaplaza.shopping.repository.ProductRepositoryExtension;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private ProductRepositoryExtension productRepositoryExtension;
+    private final ProductRepositoryExtension productRepositoryExtension;
 
     public ProductController(ProductRepositoryExtension productRepositoryExtension) {
         this.productRepositoryExtension = productRepositoryExtension;
@@ -22,9 +23,11 @@ public class ProductController {
     /**
      * Call off all products that have less than 10 items in stock.
      */
-    @GetMapping("/less-than-ten")
-    public List<Object[]> productsQuantityLessThan10() {
-        return productRepositoryExtension.findAllProductsQuantityLessThan10();
+    @GetMapping("/quantity/less-than-ten")
+    public ResponseEntity<List<Object[]>> productsQuantityLessThan10() {
+        List<Object[]> allProductsQuantityLessThan10 = productRepositoryExtension.findAllProductsQuantityLessThan10();
+        allProductsQuantityLessThan10.stream().forEach(System.out::println);
+        return ResponseEntity.ok(allProductsQuantityLessThan10);
     }
 
     @GetMapping("/quantity/{quantityThreshold}")
