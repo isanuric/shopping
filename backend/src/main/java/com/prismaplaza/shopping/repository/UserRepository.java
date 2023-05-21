@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT * FROM users LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM users LIMIT 10", nativeQuery = true)
     List<User> findAllUsersz();
 
     List<Product> findUserById(Long userId);
@@ -25,8 +25,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     default List<UserProductDTO> findAllUserWithProductDTO() {
         List<Object[]> resultList = findAllUserWithProduct();
-        return resultList.stream()
+
+
+        List<UserProductDTO> users = resultList.stream()
                 .map(row -> new UserProductDTO((String) row[0], (String) row[1]))
                 .collect(Collectors.toList());
+
+        System.out.println(users.size());
+       for (UserProductDTO user: users) {
+           System.out.println("go");
+           System.out.println(user.getName());
+       }
+        return users;
     }
 }

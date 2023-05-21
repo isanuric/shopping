@@ -21,7 +21,15 @@ public class UserController {
 
     @GetMapping("/")
     public List<UserProductDTO> getAllUsers() {
+        System.out.println("getAllUsers");
         return userRepository.findAllUserWithProductDTO();
+    }
+
+    @GetMapping("/z")
+    public List<User> getAllUsersz() {
+        System.out.println("getAllUsersz");
+        //return userRepository.findAllUserWithProductDTO();
+        return userRepository.findAllUsersz();
     }
 
     @PostMapping("/")
